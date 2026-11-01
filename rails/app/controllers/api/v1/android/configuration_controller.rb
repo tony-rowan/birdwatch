@@ -1,0 +1,50 @@
+class Api::V1::Android::ConfigurationController < ApplicationController
+  allow_unauthenticated_access
+
+  def show
+    render json: {
+      settings: {
+         tabs: [
+           {
+             title: "Posts",
+             path: "/posts",
+             icon: "list"
+           },
+           {
+             title: "Write",
+             path: "/posts/new",
+             icon: "new"
+           },
+           {
+             title: "Profile",
+             path: "/account",
+             icon: "user"
+           }
+         ]
+       },
+       rules: [
+         {
+           patterns: [
+             ".*"
+           ],
+           properties: {
+             context: "default",
+             uri: "hotwire://fragment/web",
+             pull_to_refresh_enabled: true
+           }
+         },
+         {
+           patterns: [
+             "/new$",
+             "/edit$"
+           ],
+           properties: {
+             context: "modal",
+             uri: "hotwire://fragment/web/modal/sheet",
+             pull_to_refresh_enabled: false
+           }
+         }
+       ]
+    }
+  end
+end
