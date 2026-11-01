@@ -7,8 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.FragmentContainerView
 import dev.hotwire.core.config.Hotwire
-import dev.hotwire.core.logging.HotwireLogLevel
-import dev.hotwire.core.turbo.config.PathConfiguration
 import dev.hotwire.navigation.activities.HotwireActivity
 import dev.hotwire.navigation.navigator.NavigatorConfiguration
 import dev.hotwire.navigation.navigator.NavigatorHost
@@ -16,7 +14,6 @@ import dev.hotwire.navigation.tabs.HotwireBottomNavigationController
 import dev.hotwire.navigation.tabs.HotwireBottomTab
 import dev.hotwire.navigation.tabs.navigatorConfigurations
 import dev.hotwire.navigation.util.applyDefaultImeWindowInsets
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 class MainActivity : HotwireActivity() {
@@ -28,11 +25,6 @@ class MainActivity : HotwireActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
-
-        // Need to do this before calling super, since a HotwireActivity
-        // expects navigatorConfigurations() which is dynamically fetched
-        // on cold boot from the Hotwire path configuration file.
-        configureHotwire()
 
         // We have to do this before the call to super, since that will attempt to
         // restore any pre-existing navigator fragments, and if the configuration has
@@ -58,18 +50,6 @@ class MainActivity : HotwireActivity() {
         outState.putInt(
             SAVED_STATE_KEY_SELECTED_TAB_INDEX,
             navigatorHostIds.indexOf(bottomNavigationController.currentTab.configuration.navigatorHostId)
-        )
-    }
-
-    private fun configureHotwire() {
-        Hotwire.config.logger.logLevel = HotwireLogLevel.DEBUG
-
-        Hotwire.loadPathConfiguration(
-            context = this,
-            location = PathConfiguration.Location(
-                assetFilePath = "configuration.json",
-                remoteFileUrl = "http://localhost:3000/api/v1/android/configuration"
-            )
         )
     }
 
@@ -152,8 +132,7 @@ class MainActivity : HotwireActivity() {
 
     @Parcelize
     data class Tab(val title: String, val icon: String, val path: String) : Parcelable {
-        @IgnoredOnParcel
-        @DrawableRes
-        val iconResourceId: Int = R.drawable.ic_launcher_foreground
+        val iconResourceId: Int
+            @DrawableRes get() = R.drawable.ic_launcher_foreground
     }
 }

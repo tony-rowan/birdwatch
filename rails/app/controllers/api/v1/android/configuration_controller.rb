@@ -28,8 +28,6 @@ class Api::V1::Android::ConfigurationController < ApplicationController
              ".*"
            ],
            properties: {
-             context: "default",
-             uri: "hotwire://fragment/web",
              pull_to_refresh_enabled: true
            }
          },
