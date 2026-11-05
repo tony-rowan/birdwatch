@@ -8,7 +8,7 @@ appcompat = "1.8.0"
 material = "1.14.0"
 activityKtx = "1.13.0"
 constraintlayout = "2.2.2"
-hotwire = "1.3.2"
+hotwire = "1.4.1"
 kotlinSerialization = "2.4.21"
 kotlinSerializationJson = "1.12.0"
 
