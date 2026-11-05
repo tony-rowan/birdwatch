@@ -1,2 +1,13 @@
-<h1>Account</h1>
-<p>Email: <pre><%= Current.session.user.email %></pre></p>
+<% if authenticated? %>
+  <h1>Account</h1>
+  <p>Email: <pre><%= Current.session.user.email %></pre></p>
+<% else %>
+  <%= tag.div(nil, data: {
+    controller: hotwire_native_app? ? "bridge--auto-navigate" : "auto-navigate",
+    auto_navigate_destination_value: new_session_path,
+    bridge__auto_navigate_destination_value: new_session_path
+  }) %>
+  <h1>Sign in required</h1>
+  <p>Sign in to view and manage your account</p>
+  <%= link_to "Sign in", new_session_path %>
+<% end %>
