@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resource :account, only: [:new, :create, :show]
 
   namespace :native do
+    get "sign_in"
     get "sign_out"
   end
 

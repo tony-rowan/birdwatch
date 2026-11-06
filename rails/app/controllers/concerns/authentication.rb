@@ -30,12 +30,24 @@ module Authentication
     end
 
     def request_authentication
-      session[:return_to_after_authenticating] = request.url
+      save_after_authentication_url
       redirect_to new_session_path
     end
 
+    def save_after_authentication_url
+      unless Current.session
+        session[:return_to_after_authenticating] = request.url
+      end
+    end
+
     def after_authentication_url
-      session.delete(:return_to_after_authenticating) || root_url
+      destination_url = session.delete(:return_to_after_authenticating) || posts_url
+
+      if hotwire_native_app?
+        native_sign_in_url(destination_url:)
+      else
+        destination_url
+      end
     end
 
     def start_new_session_for(user)

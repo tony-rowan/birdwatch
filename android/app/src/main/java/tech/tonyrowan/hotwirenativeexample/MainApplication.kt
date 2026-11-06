@@ -37,6 +37,7 @@ class MainApplication : Application() {
         )
 
         Hotwire.registerRouteDecisionHandlers(
+            SignInRouteDecisionHandler(),
             SignOutRouteDecisionHandler(),
             AppNavigationRouteDecisionHandler(),
             BrowserTabRouteDecisionHandler(),

@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
   # /account is a tab root and needs to display an unathenticated page
   allow_unauthenticated_access only: %i[ new create show ]
+  before_action :save_after_authentication_url, only: %i[ show ]
 
   def new
     render locals: {
@@ -13,7 +14,7 @@ class AccountsController < ApplicationController
 
     if user.save
       start_new_session_for(user)
-      redirect_to posts_path, notice: "Successfully signed up!"
+      redirect_to after_authentication_url, notice: "Successfully signed up!"
     else
       render :new, status: :unprocessable_content, locals: {
         user:

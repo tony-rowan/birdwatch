@@ -42,6 +42,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.expect(post: [ :body ]).merge(user: Current.session.user)
+      params.expect(post: [ :body ]).merge(user: Current.user)
     end
 end

@@ -18,6 +18,33 @@ import kotlinx.parcelize.Parcelize
 class MainActivity : HotwireActivity() {
     private lateinit var bottomNavigationController: HotwireBottomNavigationController
 
+    /**
+     * Reset all non-active navigators, skipping navigators that haven't started.
+     * Will cause started navigators to route to a dialog, if their root is so configured.
+     *
+     * Used after sign in.
+     */
+    fun resetBackgroundNavigation() {
+        delegate.resetNavigators()
+        navigatorConfigurations().forEach { configuration ->
+            val navigatorHost = delegate.findNavigatorHost(configuration.navigatorHostId)
+            if (delegate.currentNavigator != navigatorHost) {
+                if (navigatorHost?.isReady() == true) {
+                    navigatorHost.navigator.reset()
+                }
+            }
+        }
+    }
+
+    /**
+     * Completely tear down and restart all navigators by destroying the host fragments and
+     * creating new ones. Tabs that have been lazily loaded will lazy load again, meaning tabs
+     * whose root triggers a dialog will not trigger the dialog when this is called.
+     *
+     * Selects the primary tab again.
+     *
+     * Used after sign out.
+     */
     fun resetAllNavigation() {
         bottomNavigationController.selectTab(0)
 
