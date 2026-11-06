@@ -1,15 +1,11 @@
 class PostsController < ApplicationController
   allow_unauthenticated_access only: %i[ index ]
 
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ edit destroy ]
 
   # GET /posts
   def index
     @posts = Post.all
-  end
-
-  # GET /posts/1
-  def show
   end
 
   # GET /posts/new
@@ -26,18 +22,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      redirect_to @post, notice: "Post was successfully created."
+      redirect_to posts_path, notice: "Post was successfully created."
     else
       render :new, status: :unprocessable_content
-    end
-  end
-
-  # PATCH/PUT /posts/1
-  def update
-    if @post.update(post_params)
-      redirect_to @post, notice: "Post was successfully updated.", status: :see_other
-    else
-      render :edit, status: :unprocessable_content
     end
   end
 
@@ -55,6 +42,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.expect(post: [ :user_id, :body ])
+      params.expect(post: [ :body ]).merge(user: Current.session.user)
     end
 end

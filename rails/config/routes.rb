@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
 
   resources :posts, only: [:index, :new, :create, :destroy]
-  resource :account, only: [:show]
+  resource :account, only: [:new, :create, :show]
+
+  namespace :native do
+    get "sign_out"
+  end
 
   namespace :api do
     namespace :v1 do

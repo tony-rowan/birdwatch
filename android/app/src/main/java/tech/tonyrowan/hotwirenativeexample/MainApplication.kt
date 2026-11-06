@@ -7,6 +7,10 @@ import dev.hotwire.core.config.Hotwire
 import dev.hotwire.core.logging.HotwireLogLevel
 import dev.hotwire.core.turbo.config.PathConfiguration
 import dev.hotwire.navigation.config.registerBridgeComponents
+import dev.hotwire.navigation.config.registerRouteDecisionHandlers
+import dev.hotwire.navigation.routing.AppNavigationRouteDecisionHandler
+import dev.hotwire.navigation.routing.BrowserTabRouteDecisionHandler
+import dev.hotwire.navigation.routing.SystemNavigationRouteDecisionHandler
 
 class MainApplication : Application() {
     override fun onCreate() {
@@ -30,6 +34,13 @@ class MainApplication : Application() {
 
         Hotwire.registerBridgeComponents(
             BridgeComponentFactory("auto-navigate", ::AutoNavigateComponent)
+        )
+
+        Hotwire.registerRouteDecisionHandlers(
+            SignOutRouteDecisionHandler(),
+            AppNavigationRouteDecisionHandler(),
+            BrowserTabRouteDecisionHandler(),
+            SystemNavigationRouteDecisionHandler()
         )
     }
 }

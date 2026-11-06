@@ -7,10 +7,11 @@
 <div id="posts">
   <% @posts.each do |post| %>
     <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
   <% end %>
 </div>
 
-<%= link_to "New post", new_post_path %>
+<% if authenticated? %>
+  <%= link_to "New post", new_post_path %>
+<% else %>
+  <p><%= link_to "Sign in", new_session_path %> or <%= link_to "Sign up", new_account_path %> to add your post.</p>
+<% end %>
