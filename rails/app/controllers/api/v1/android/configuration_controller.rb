@@ -11,11 +11,6 @@ class Api::V1::Android::ConfigurationController < ApplicationController
              icon: "list"
            },
            {
-             title: "Write",
-             path: "/posts/new",
-             icon: "new"
-           },
-           {
              title: "Profile",
              path: "/account",
              icon: "user"
