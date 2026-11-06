@@ -17,7 +17,7 @@ class SignOutRouteDecisionHandler: Router.RouteDecisionHandler {
         configuration: NavigatorConfiguration,
         activity: HotwireActivity
     ): Router.Decision {
-        activity.delegate.resetNavigators()
+        (activity as? MainActivity)?.resetAllNavigation()
         return Router.Decision.CANCEL
     }
 }

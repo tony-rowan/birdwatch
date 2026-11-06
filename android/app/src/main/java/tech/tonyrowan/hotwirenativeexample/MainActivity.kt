@@ -5,7 +5,6 @@ import android.os.Parcelable
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
-import androidx.fragment.app.FragmentContainerView
 import dev.hotwire.core.config.Hotwire
 import dev.hotwire.navigation.activities.HotwireActivity
 import dev.hotwire.navigation.navigator.NavigatorConfiguration
@@ -18,6 +17,20 @@ import kotlinx.parcelize.Parcelize
 
 class MainActivity : HotwireActivity() {
     private lateinit var bottomNavigationController: HotwireBottomNavigationController
+
+    fun resetAllNavigation() {
+        bottomNavigationController.selectTab(0)
+
+        tabConfiguration.forEachIndexed { index, _ ->
+             supportFragmentManager.beginTransaction().also { transaction ->
+                 supportFragmentManager.findFragmentById(navigatorHostIds[index])?.let {
+                     transaction.remove(it)
+                 }
+                 transaction.add(navigatorHostIds[index], NavigatorHost())
+                 transaction.commitNow()
+            }
+        }
+    }
 
     override fun navigatorConfigurations(): List<NavigatorConfiguration> {
         return bottomNavigationTabs.navigatorConfigurations
@@ -64,8 +77,6 @@ class MainActivity : HotwireActivity() {
 
     private fun createNavigatorHostFragmentsForTabs() {
         tabConfiguration.forEachIndexed { index, _ ->
-            findViewById<FragmentContainerView>(navigatorHostIds[index])
-
             val transaction = supportFragmentManager.beginTransaction()
             transaction.add(navigatorHostIds[index], NavigatorHost())
             transaction.commitNow()
