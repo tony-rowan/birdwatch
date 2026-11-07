@@ -1,0 +1,12 @@
+version: 0.11.2
+
+framework: actionview
+
+linter:
+  enabled: true
+
+formatter:
+  enabled: false
+  indentWidth: 2
+  indentStyle: space
+  maxLineLength: 120

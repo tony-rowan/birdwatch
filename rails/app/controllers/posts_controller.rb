@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
-  allow_unauthenticated_access only: %i[ index ]
+  allow_unauthenticated_access only: %i[index]
 
-  before_action :set_post, only: %i[ edit destroy ]
+  before_action :set_post, only: %i[edit destroy]
 
   # GET /posts
   def index
@@ -35,13 +35,14 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.expect(post: [ :body ]).merge(user: Current.user)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.expect(post: [:body]).merge(user: Current.user)
+  end
 end

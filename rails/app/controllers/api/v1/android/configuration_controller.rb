@@ -4,40 +4,40 @@ class Api::V1::Android::ConfigurationController < ApplicationController
   def show
     render json: {
       settings: {
-         tabs: [
-           {
-             title: "Posts",
-             path: "/posts",
-             icon: "list"
-           },
-           {
-             title: "Profile",
-             path: "/account",
-             icon: "user"
-           }
-         ]
-       },
-       rules: [
-         {
-           patterns: [
-             ".*"
-           ],
-           properties: {
-             pull_to_refresh_enabled: true
-           }
-         },
-         {
-           patterns: [
-             "/new$",
-             "/edit$"
-           ],
-           properties: {
-             context: "modal",
-             uri: "hotwire://fragment/web/modal/sheet",
-             pull_to_refresh_enabled: false
-           }
-         }
-       ]
+        tabs: [
+          {
+            title: "Posts",
+            path: "/posts",
+            icon: "list"
+          },
+          {
+            title: "Profile",
+            path: "/account",
+            icon: "user"
+          }
+        ]
+      },
+      rules: [
+        {
+          patterns: [
+            ".*"
+          ],
+          properties: {
+            pull_to_refresh_enabled: true
+          }
+        },
+        {
+          patterns: [
+            "/new$",
+            "/edit$"
+          ],
+          properties: {
+            context: "modal",
+            uri: "hotwire://fragment/web/modal/sheet",
+            pull_to_refresh_enabled: false
+          }
+        }
+      ]
     }
   end
 end

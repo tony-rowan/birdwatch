@@ -1,7 +1,7 @@
 class AccountsController < ApplicationController
   # /account is a tab root and needs to display an unathenticated page
-  allow_unauthenticated_access only: %i[ new create show ]
-  before_action :save_after_authentication_url, only: %i[ show ]
+  allow_unauthenticated_access only: %i[new create show]
+  before_action :save_after_authentication_url, only: %i[show]
 
   def new
     render locals: {
