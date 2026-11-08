@@ -1,0 +1,47 @@
+<% content_for :title, bird.name %>
+
+<div class="flex flex-col md:flex-row gap-4">
+  <%= image_tag(bird.image_url, class: "w-full h-auto md:size-80 object-cover rounded") %>
+
+  <div class="p-2 pe-4">
+    <% unless hotwire_native_app? %>
+      <h1 class="font-semibold text-4xl mb-3">
+        <%= bird.name %>
+      </h1>
+    <% end %>
+
+    <p><%= bird.description %></p>
+
+    <div class="flex items-center gap-2 mt-3">
+      <%= render "icons/heart" %>
+      <span>Likes</span>
+      <span><%= bird.likes.size %></span>
+      <% if (like = bird.likes.find_by(user: Current.user)) %>
+        <%= button_to "Remove like for #{bird.name}", bird_like_path(bird, like),
+          method: :delete,
+          class: "block cursor-pointer bg-rose-300 hover:bg-rose-400 rounded px-2 py-1" %>
+      <% else %>
+        <%= button_to "Like #{bird.name}", bird_likes_path(bird),
+        class: "block cursor-pointer bg-teal-300 hover:bg-teal-400 rounded px-2 py-1" %>
+      <% end %>
+    </div>
+
+    <div class="flex items-center gap-2 mt-3">
+      <%= render "icons/comment" %>
+      <span>Comments</span>
+      <span><%= bird.comments.size %></span>
+      <%= link_to "Leave a comment", new_bird_comment_path(bird),
+        class: "block cursor-pointer bg-teal-300 hover:bg-teal-400 rounded px-2 py-1" %>
+    </div>
+
+    <div class="mt-2">
+      <% bird.comments.each do |comment| %>
+        <div class="mt-2">
+          <p><%= comment.body %></p>
+          <p class="font-semibold"><%= comment.user.username %></p>
+          <p><%= time_ago_in_words(comment.created_at) %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

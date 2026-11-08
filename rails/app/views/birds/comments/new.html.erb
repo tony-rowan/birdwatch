@@ -1,0 +1,22 @@
+<% content_for :title, "New comment on #{bird.name}" %>
+
+<% unless hotwire_native_app? %>
+  <h1 class="font-semibold text-4xl mb-6">
+    New comment on <%= bird.name %>
+  </h1>
+<% end %>
+
+<%= form_with(model: comment, url: bird_comments_path(bird)) do |f| %>
+  <div>
+    <%= f.label :body %>
+    <%= f.text_field :body,
+      required: true,
+      autofocus: true,
+      autocomplete: "off",
+      placeholder: "Say something nice",
+      class: "w-full block border-2 border-gray-300 rounded-lg px-2 py-1" %>
+  </div>
+
+  <%= f.submit "Post comment",
+    class: "block cursor-pointer bg-teal-300 hover:bg-teal-400 rounded px-4 py-2 mt-3" %>
+<% end %>

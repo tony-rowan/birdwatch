@@ -1,14 +1,35 @@
 <% if authenticated? %>
-  <h1>Account</h1>
-  <p>Email: <pre><%= Current.user.email_address %></pre></p>
-  <p><%= button_to "Sign out", session_path, method: :delete %></p>
+  <% content_for :title, "Account" %>
+
+  <% unless hotwire_native_app? %>
+    <h1 class="font-semibold text-4xl mb-6">
+      Account
+    </h1>
+  <% end %>
+
+  <p>Welcome <code><%= Current.user.username %></code>!</p>
+  <p>You've liked <%= Current.user.likes.count %> birds.</p>
+  <p>You've left <%= Current.user.comments.count %> comments.</p>
+  <%= button_to "Sign out", session_path,
+    method: :delete,
+    class: "block w-fit cursor-pointer bg-rose-300 hover:bg-rose-400 rounded px-4 py-2 mt-3" %>
 <% else %>
+  <% content_for :title, "Account" %>
+
+  <% unless hotwire_native_app? %>
+    <h1 class="font-semibold text-4xl mb-6">
+      Account
+    </h1>
+  <% end %>
+
   <%= tag.div(nil, data: {
     controller: hotwire_native_app? ? "bridge--auto-navigate" : "auto-navigate",
     auto_navigate_destination_value: new_session_path,
     bridge__auto_navigate_destination_value: new_session_path
   }) %>
-  <h1>Sign in required</h1>
+
   <p>Sign in to view and manage your account</p>
-  <%= link_to "Sign in", new_session_path %>
+
+  <%= link_to "Sign in", new_session_path,
+    class: "block w-fit cursor-pointer bg-teal-300 hover:bg-teal-400 rounded px-4 py-2 mt-3" %>
 <% end %>

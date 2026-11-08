@@ -2,6 +2,7 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
+    before_action :resume_session
     before_action :require_authentication
     helper_method :authenticated?
   end
@@ -42,7 +43,7 @@ module Authentication
   end
 
   def after_authentication_url
-    destination_url = session.delete(:return_to_after_authenticating) || posts_url
+    destination_url = session.delete(:return_to_after_authenticating) || birds_url
 
     if hotwire_native_app?
       native_sign_in_url(destination_url:)

@@ -1,0 +1,29 @@
+<% content_for :title, "All Birds" %>
+
+<% unless hotwire_native_app? %>
+  <h1 class="font-semibold text-4xl mb-6">
+    All Birds
+  </h1>
+<% end %>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <% birds.each do |bird| %>
+    <%= link_to bird_path(bird), class: "flex gap-4 rounded-lg bg-sky-100 hover:bg-sky-200" do %>
+      <%= image_tag(bird.image_url, class: "size-40 h-full min-h-40 object-cover rounded") %>
+      <div class="p-2 pe-4">
+        <h2 class="font-semibold text-xl"><%= bird.name %></h2>
+        <p><%= bird.description %></p>
+        <div class="flex gap-4 mt-3 py-1">
+          <div class="flex gap-2">
+            <%= render "icons/heart" %>
+            <span><%= bird.likes.count %></span>
+          </div>
+          <div class="flex gap-2">
+            <%= render "icons/comment" %>
+            <span><%= bird.comments.count %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

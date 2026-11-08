@@ -9,12 +9,12 @@ module Api
             settings: {
               tabs: [
                 {
-                  title: "Posts",
-                  path: "/posts",
-                  icon: "list"
+                  title: "Birds",
+                  path: "/birds",
+                  icon: "bird"
                 },
                 {
-                  title: "Profile",
+                  title: "Account",
                   path: "/account",
                   icon: "user"
                 }

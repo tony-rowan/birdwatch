@@ -10,13 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_01_202758) do
-  create_table "posts", force: :cascade do |t|
+ActiveRecord::Schema[8.1].define(version: 2026_11_07_213052) do
+  create_table "bird_comments", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "body"
+    t.integer "bird_id", null: false
+    t.string "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.index ["bird_id"], name: "index_bird_comments_on_bird_id"
+    t.index ["user_id"], name: "index_bird_comments_on_user_id"
+  end
+
+  create_table "bird_likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "bird_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bird_id"], name: "index_bird_likes_on_bird_id"
+    t.index ["user_id", "bird_id"], name: "index_bird_likes_on_user_id_and_bird_id", unique: true
+    t.index ["user_id"], name: "index_bird_likes_on_user_id"
+  end
+
+  create_table "birds", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.string "image_url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -29,13 +49,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_01_202758) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email_address", null: false
+    t.string "username", null: false
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "posts", "users"
+  add_foreign_key "bird_comments", "birds"
+  add_foreign_key "bird_comments", "users"
+  add_foreign_key "bird_likes", "birds"
+  add_foreign_key "bird_likes", "users"
   add_foreign_key "sessions", "users"
 end
