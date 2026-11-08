@@ -11,7 +11,7 @@ module Api
                 {
                   title: "Birds",
                   path: "/birds",
-                  icon: "bird"
+                  icon: "list"
                 },
                 {
                   title: "Account",

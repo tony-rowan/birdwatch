@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "tech.tonyrowan.hotwirenativeexample"
+    namespace = "tech.tonyrowan.birdwatch"
     compileSdk {
         version = release(37)
     }
@@ -15,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "tech.tonyrowan.hotwirenativeexample"
+        applicationId = "tech.tonyrowan.birdwatch"
         minSdk = 33
         targetSdk = 37
         versionCode = 1

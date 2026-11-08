@@ -1,4 +1,4 @@
-package tech.tonyrowan.hotwirenativeexample
+package tech.tonyrowan.birdwatch
 
 import android.util.Log
 import dev.hotwire.core.bridge.BridgeComponent

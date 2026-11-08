@@ -1,4 +1,4 @@
-package tech.tonyrowan.hotwirenativeexample
+package tech.tonyrowan.birdwatch
 
 import android.app.Application
 import dev.hotwire.core.bridge.BridgeComponentFactory
@@ -20,7 +20,7 @@ class MainApplication : Application() {
             Hotwire.config.webViewDebuggingEnabled = true
         }
 
-        Hotwire.config.applicationUserAgentPrefix = "Hotwire Native Example;"
+        Hotwire.config.applicationUserAgentPrefix = "Birdwatch;"
 
         Hotwire.config.jsonConverter = KotlinXJsonConverter()
 

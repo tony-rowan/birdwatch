@@ -1,4 +1,4 @@
-package tech.tonyrowan.hotwirenativeexample
+package tech.tonyrowan.birdwatch
 
 import dev.hotwire.core.turbo.visit.VisitProposal
 import dev.hotwire.navigation.activities.HotwireActivity

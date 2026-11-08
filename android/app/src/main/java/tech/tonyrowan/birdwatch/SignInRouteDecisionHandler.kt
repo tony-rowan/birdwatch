@@ -1,4 +1,4 @@
-package tech.tonyrowan.hotwirenativeexample
+package tech.tonyrowan.birdwatch
 
 import androidx.core.net.toUri
 import dev.hotwire.core.turbo.visit.VisitProposal

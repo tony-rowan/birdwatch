@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "HotwireNativeExample"
+rootProject.name = "Birdwatch"
 include(":app")

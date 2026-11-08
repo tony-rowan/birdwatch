@@ -1,4 +1,4 @@
-package tech.tonyrowan.hotwirenativeexample
+package tech.tonyrowan.birdwatch
 
 import android.os.Bundle
 import android.os.Parcelable
@@ -171,6 +171,10 @@ class MainActivity : HotwireActivity() {
     @Parcelize
     data class Tab(val title: String, val icon: String, val path: String) : Parcelable {
         val iconResourceId: Int
-            @DrawableRes get() = R.drawable.ic_launcher_foreground
+            @DrawableRes get() = when(icon) {
+                "list" -> R.drawable.ic_list
+                "user" -> R.drawable.ic_user
+                else -> R.drawable.ic_launcher_foreground
+            }
     }
 }
